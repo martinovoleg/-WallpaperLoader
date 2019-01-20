@@ -11,20 +11,28 @@
     <div class="form-group">
         <form class="form-inline">
             <label for="categoriesImages" class="col-form-label col-form-label-lg">Категория</label>
-            <select id="categoriesImages" class="form-control" style="display:inline-block">
+            <select disabled id="categoriesImages" class="form-control" style="display:inline-block">
                 <option value="">Выберите категорию</option>
             </select>
 
-            <button style="display:inline-block" type="button" class="btn btn-primary" id="download_section">Начать загрузку раздела:)</button>
+            <button disabled style="display:inline-block" type="button" class="btn btn-primary" id="download_section">Начать загрузку раздела:)</button>
             <a href="#" style="display:none"></a>
         </form>
+
     </div>
     <div class="col-md-auto" id="processingImagesDownload" style="display:none; margin-right:15px">
         <div class="loaderForAlumn">
             <hr /><hr /><hr /><hr />
         </div>
     </div>
+    <div class="progress" style="display:none">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+        <div class="progress-bar-title"></div>
+    </div>
     <div id="bodyHtml" style="display:none">
+
     </div>
 
 </div>

@@ -56,18 +56,18 @@ namespace goodfonDownloader.Controllers
             return View();
         }
 
-        public string downloadCategoryImagesFromPage(string imageLinks, string category)
+        public string downloadCategoryImageFromPage(string imageLink, string category)
         {
             try
             {
-                var imageLinksList = JsonConvert.DeserializeObject<List<string>>(imageLinks);
+                //var imageLinksList = JsonConvert.DeserializeObject<List<string>>(imageLinks);
 
                 if (!Directory.Exists(Server.MapPath("~/App_Data/" + category + "/")))
                 {
                     Directory.CreateDirectory(Server.MapPath("~/App_Data/" + category + "/"));
                 }
 
-                downloadImage(imageLinksList.First(), category);
+                downloadImage(imageLink, category);
             }
             catch (Exception ex)
             {
