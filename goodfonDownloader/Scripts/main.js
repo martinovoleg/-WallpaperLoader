@@ -1,10 +1,7 @@
 ﻿
 let doc = document;
 
-var doctype = document.implementation.createDocumentType('html', '', '');
-var dom = document.implementation.createDocument('', 'html', doctype);
-
-
+//настройки кроссдоменного запроса
 $.ajaxPrefilter(function (options) {
     if (options.crossDomain && jQuery.support.cors) {
         var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
@@ -16,7 +13,21 @@ $.ajaxPrefilter(function (options) {
 let url_site = "https://www.goodfon.ru/";
 let categoriesImages = [];
 
+//обработка select с выбором категорий
+$('#categoriesImages').change(function () {
 
+    let is_result = $("#categoriesImages option:selected").text().trim() === 'Выберите категорию';
+
+    if (is_result) {
+        $('#download_section').attr('disabled', true);
+    }
+    else {
+        $('#download_section').attr('disabled', false);
+    }
+    
+});
+
+//получить категории изображений для select
 const get_categories_images = function (html) {
 
     doc.getElementById('bodyHtml').innerHTML = html;
@@ -30,10 +41,9 @@ const get_categories_images = function (html) {
     });
 
     $('#categoriesImages').attr('disabled', false);
-    $('#download_section').attr('disabled', false);
 };
 
-
+//сформировать ссылки для изображений на страничке по определенной категории
 const form_link_images_category_page = function (image_names_from_category_page) {
 
     let links_download_images_category_page = [];
@@ -45,6 +55,7 @@ const form_link_images_category_page = function (image_names_from_category_page)
     return links_download_images_category_page;
 };
 
+//получить имена для изображений на страничке по определенной категории
 const get_image_names_from_category_page = function () {
 
     let image_names_from_category_page = [];
@@ -57,18 +68,19 @@ const get_image_names_from_category_page = function () {
     return image_names_from_category_page;
 };
 
-
+// обработчик кнопки загрузить раздел
 $("#download_section").click(function () {
     let next_page_url;
     let categoriesImages_sel_val = $("#categoriesImages option:selected").val();
     let current_page = doc.getElementById('download_section').current_page;
 
+    //формируем ссылку для новой стрнички раздела
     if (current_page) {
         next_page_url = `${categoriesImages_sel_val}index-${current_page}.html`;
     } else {
         next_page_url = $("#categoriesImages option:selected").val();
     }
-
+    //запрос на разбор следующей страницы раздела
     $.get(next_page_url, function (response) {
         doc.getElementById('bodyHtml').innerHTML = response;
         download_images_category_f(response);
@@ -77,6 +89,7 @@ $("#download_section").click(function () {
 
 });
 
+//загрузить все изображения по выбранной категории
 const download_images_category_f = function (response) {
 
     let count_pages = doc.querySelector('div.paginator__page').innerHTML.trim().split(' ')[2];
@@ -90,13 +103,14 @@ const download_images_category_f = function (response) {
     $('.progress').css('display', 'block');
     $('.progress-bar').attr('aria-valuemax', count_pages);
 
-    // цикл загрузки изображений
+    // цикл загрузки изображений одной страницы
     link_images_category_page.forEach((link_image) => {
 
         var formData = new FormData();
         formData.append('imageLink', link_image);
         formData.append('category', $("#categoriesImages option:selected").text());
 
+        //скачать одно изображение
         $.ajax({
             type: "POST",
             url: "/Home" + "/downloadCategoryImageFromPage",
@@ -110,12 +124,12 @@ const download_images_category_f = function (response) {
                     if (step === link_images_category_page.length) {
                         $('.progress-bar').attr('aria-valuenow', current_page);
                         $('.progress-bar').attr('style', `width:${current_page}%`);
-                        console.log(current_page);
+                      
                         doc.getElementById('download_section').current_page = ++current_page;
                         $("#download_section").click();
                     }
                     let text = link_image.split('/');
-                    $('.progress-bar-title').text(text[text.length-3]);
+                    $('.progress-bar-title').text(`${text[text.length - 3]}.jpg`);
                 } else {
                     alert(response);
                 }
@@ -126,10 +140,9 @@ const download_images_category_f = function (response) {
             }
         });
     });
-    
-}
+};
 
-
+//загрузка начальной страницы сайта с обоями
 $.get(url_site, function (response) {
     get_categories_images(response);
 });
