@@ -28,6 +28,9 @@ const get_categories_images = function (html) {
                 .attr("value", element.href)
                 .text(element.innerHTML)); 
     });
+
+    $('#categoriesImages').attr('disabled', false);
+    $('#download_section').attr('disabled', false);
 };
 
 
@@ -42,10 +45,9 @@ const form_link_images_category_page = function (image_names_from_category_page)
     return links_download_images_category_page;
 };
 
-const get_image_names_from_category_page = function (html) {
+const get_image_names_from_category_page = function () {
 
     let image_names_from_category_page = [];
-    doc.getElementById('bodyHtml').innerHTML = html;
 
     let elements = doc.querySelectorAll('div.wallpapers__item__wall');
     Array.prototype.forEach.call(elements, (element) => {
@@ -57,38 +59,75 @@ const get_image_names_from_category_page = function (html) {
 
 
 $("#download_section").click(function () {
-    
-    $.get($("#categoriesImages option:selected").val(), function (response) {
-        let image_names_from_category_page = get_image_names_from_category_page(response);
-        let link_images_category_page = form_link_images_category_page(image_names_from_category_page);
+    let next_page_url;
+    let categoriesImages_sel_val = $("#categoriesImages option:selected").val();
+    let current_page = doc.getElementById('download_section').current_page;
 
-        $('#processingImagesDownload').css('display', 'block');
+    if (current_page) {
+        next_page_url = `${categoriesImages_sel_val}index-${current_page}.html`;
+    } else {
+        next_page_url = $("#categoriesImages option:selected").val();
+    }
 
-        //берем файл из input
+    $.get(next_page_url, function (response) {
+        doc.getElementById('bodyHtml').innerHTML = response;
+        download_images_category_f(response);
+
+    });
+
+});
+
+const download_images_category_f = function (response) {
+
+    let count_pages = doc.querySelector('div.paginator__page').innerHTML.trim().split(' ')[2];
+    let current_page = parseInt(doc.querySelector('div.paginator__page').innerHTML.trim().split(' ')[0]);
+
+    let image_names_from_category_page = get_image_names_from_category_page();
+    let link_images_category_page = form_link_images_category_page(image_names_from_category_page);
+    let step = 0;
+
+    $('#processingImagesDownload').css('display', 'block');
+    $('.progress').css('display', 'block');
+    $('.progress-bar').attr('aria-valuemax', count_pages);
+
+    // цикл загрузки изображений
+    link_images_category_page.forEach((link_image) => {
+
         var formData = new FormData();
-        formData.append('imageLinks', JSON.stringify(link_images_category_page));
+        formData.append('imageLink', link_image);
         formData.append('category', $("#categoriesImages option:selected").text());
 
         $.ajax({
             type: "POST",
-            url: "/Home" + "/downloadCategoryImagesFromPage",
+            url: "/Home" + "/downloadCategoryImageFromPage",
             data: formData,
             contentType: false,
             processData: false,
             async: true,
             success: function (response, textStatus) {
+                step++;
                 if (response === "ok") {
-
+                    if (step === link_images_category_page.length) {
+                        $('.progress-bar').attr('aria-valuenow', current_page);
+                        $('.progress-bar').attr('style', `width:${current_page}%`);
+                        console.log(current_page);
+                        doc.getElementById('download_section').current_page = ++current_page;
+                        $("#download_section").click();
+                    }
+                    let text = link_image.split('/');
+                    $('.progress-bar-title').text(text[text.length-3]);
+                } else {
+                    alert(response);
                 }
+
             },
             error: function (request, status, error) {
                 alert('error');
             }
         });
-
     });
-
-});
+    
+}
 
 
 $.get(url_site, function (response) {
