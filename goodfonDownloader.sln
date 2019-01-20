@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "goodfonDownloader", "goodfonDownloader\goodfonDownloader.csproj", "{58F1CFE3-1D73-43B7-9BEA-377B5B9FF26D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58F1CFE3-1D73-43B7-9BEA-377B5B9FF26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F1CFE3-1D73-43B7-9BEA-377B5B9FF26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F1CFE3-1D73-43B7-9BEA-377B5B9FF26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F1CFE3-1D73-43B7-9BEA-377B5B9FF26D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACF3468A-6BF5-4BA8-B9B6-46E4611B9308}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,221 @@
+/*.loaderArea {
+    background: linear-gradient(90deg, #FF4E50 10%, #F9D423 90%);
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+}
+.loader {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    top: 50%;
+    margin-top: -20px;
+}
+
+    .loader:before,
+    .loader:after {
+        content: "";
+        height: 40px;
+        width: 40px;
+        border: 8px solid rgba(255,255,255,.5);
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+    }
+
+    .loader:before {
+        animation: animate 2s infinite linear;
+    }
+
+@keyframes animate {
+    0% {
+        transform: rotate(0) skew(0);
+    }
+
+    100% {
+        transform: rotate(180deg) skew(360deg);
+    }
+}
+
+
+.loader:after {
+    animation: animate2 2s infinite linear;
+}
+
+@keyframes animate2 {
+    0% {
+        transform: rotate(0) skew(0);
+    }
+
+    100% {
+        transform: rotate(-180deg) skew(-360deg);
+    }
+}*/
+/*#hellopreloader > p {
+    display: none;
+}
+
+#hellopreloader_preload {
+    display: block;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(http://hello-site.ru//main/images/preloads/three-dots.svg) center center no-repeat;
+    background-color: #6BB9F0;
+    background-size: 60px;
+}*/
+
+.load {
+    position: absolute;
+    top: 20%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+    /*change these sizes to fit into your project*/
+    width: 66px;
+    height: 66px;
+}
+
+    .load hr {
+        border: 0;
+        margin: 0;
+        width: 20%;
+        height: 20%;
+        position: absolute;
+        border-radius: 50%;
+        animation: spin 2s ease infinite
+    }
+
+    .load :first-child {
+        background: #19A68C;
+        animation-delay: -1.5s
+    }
+
+    .load :nth-child(2) {
+        background: #F63D3A;
+        animation-delay: -1s
+    }
+
+    .load :nth-child(3) {
+        background: #FDA543;
+        animation-delay: -0.5s
+    }
+
+    .load :last-child {
+        background: #193B48
+    }
+
+
+
+.loaderForAddDir {
+    position: absolute;
+    top: 90%;
+    left: -337%;
+    transform: translate(-50%, -50%);
+    /*change these sizes to fit into your project*/
+    width: 60px;
+    height: 60px;
+}
+
+.loaderForAddDir hr {
+    border: 0;
+    margin: 0;
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    border-radius: 50%;
+    animation: spin 2s ease infinite
+}
+
+.loaderForAddDir :first-child {
+    background: #19A68C;
+    animation-delay: -1.5s
+}
+
+.loaderForAddDir :nth-child(2) {
+    background: #F63D3A;
+    animation-delay: -1s
+}
+
+.loaderForAddDir :nth-child(3) {
+    background: #FDA543;
+    animation-delay: -0.5s
+}
+
+.loaderForAddDir :last-child {
+    background: #193B48
+}
+
+
+
+
+.loaderForAlumn {
+   
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*change these sizes to fit into your project*/
+    width: 60px;
+    height: 60px;
+}
+
+    .loaderForAlumn hr {
+        border: 0;
+        margin: 0;
+        width: 20%;
+        height: 20%;
+        position: absolute;
+        border-radius: 50%;
+        animation: spin 2s ease infinite
+    }
+
+    .loaderForAlumn :first-child {
+        background: #19A68C;
+        animation-delay: -1.5s
+    }
+
+    .loaderForAlumn :nth-child(2) {
+        background: #F63D3A;
+        animation-delay: -1s
+    }
+
+    .loaderForAlumn :nth-child(3) {
+        background: #FDA543;
+        animation-delay: -0.5s
+    }
+
+    .loaderForAlumn :last-child {
+        background: #193B48
+    }
+
+
+
+
+@keyframes spin {
+    0%,100% {
+        transform: translate(0)
+    }
+
+    25% {
+        transform: translate(160%)
+    }
+
+    50% {
+        transform: translate(160%, 160%)
+    }
+
+    75% {
+        transform: translate(0, 160%)
+    }
+}
+
+
+
