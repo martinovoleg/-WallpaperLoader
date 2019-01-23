@@ -2632,6 +2632,7 @@ input[type="search"] {
 }
 .form-group {
   float: left;
+  min-width: 500px;
   margin-bottom: 15px;
   margin-right: 15px;
 }
